@@ -1,0 +1,100 @@
+:root {
+	--ink: #1b1f28;
+	--ink-strong: #0f1218;
+	--muted: #5f6673;
+	--accent: #b35723;
+	--accent-2: #1d6f78;
+	--page-bg: #f4eee4;
+	--surface: rgba(255, 255, 255, 0.9);
+	--border: rgba(43, 48, 61, 0.12);
+	--shadow-lg:
+		rgba(17, 24, 39, 0.12) 0 1.5rem 2.75rem -1rem,
+		rgba(17, 24, 39, 0.08) 0 0.8rem 1.2rem -0.8rem;
+
+	font-family: 'Aptos', 'Segoe UI', 'Trebuchet MS', sans-serif;
+	font-size: 17px;
+	line-height: 1.5;
+	letter-spacing: 0.01em;
+	color: var(--ink);
+	background: radial-gradient(circle at top, #fff8f0 0%, #f4eee4 45%, #efe7da 100%);
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@media (max-width: 900px) {
+	:root {
+		font-size: 15px;
+	}
+}
+
+html,
+body,
+#root {
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+	min-height: 100svh;
+	background: var(--page-bg);
+}
+
+#root {
+	min-height: 100svh;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+img {
+	max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+	font-family: 'Georgia', 'Times New Roman', serif;
+	font-weight: 700;
+	color: var(--ink-strong);
+	letter-spacing: -0.03em;
+}
+
+h1 {
+	font-size: clamp(2.6rem, 5vw, 4.45rem);
+	line-height: 0.98;
+}
+
+h2 {
+	font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+	line-height: 1.1;
+}
+
+p {
+	margin-bottom: 0;
+}
+
+button {
+	-webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible {
+	outline: 3px solid rgba(29, 111, 120, 0.35);
+	outline-offset: 2px;
+}
