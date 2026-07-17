@@ -313,7 +313,12 @@ function App() {
 								{bibliography.map((item) => (
 									<li key={`${item.text}-${item.url ?? 'local'}`}>
 										{item.url ? (
-											<a href={item.url} title={item.title} target="_blank" rel="noreferrer">
+											<a
+												href={item.url}
+												title={item.title}
+												target="_blank"
+												rel="noreferrer"
+											>
 												{item.text}
 											</a>
 										) : (
@@ -324,6 +329,15 @@ function App() {
 							</ul>
 						</aside>
 					) : null}
+
+					<footer className="page-footer" aria-label="Autor y materia">
+						<span>
+							Estudiante:
+							<strong> Ivan Herrera V-26590497</strong>
+						</span>
+						<span>Instituto Universitario Jesús Obrero</span>
+						<span>Contabilidad Computarizada</span>
+					</footer>
 				</section>
 			) : (
 				<section className="reader-screen" aria-label="Vista de lectura del tema">
@@ -393,6 +407,15 @@ function App() {
 							</section>
 						</div>
 					</article>
+
+					<footer className="page-footer" aria-label="Autor y materia">
+						<span>
+							Estudiante:
+							<strong> Ivan Herrera V-26590497</strong>
+						</span>
+						<span>Instituto Universitario Jesús Obrero</span>
+						<span>Contabilidad Computarizada</span>
+					</footer>
 				</section>
 			)}
 		</main>
