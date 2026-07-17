@@ -5,7 +5,7 @@ import legalImage from './assets/cumplimiento.png';
 import importanceImage from './assets/innovacion.png';
 import principlesImage from './assets/principio.png';
 import objectivesImage from './assets/publico-objetivo.png';
-import x from './assets/x.png';
+// import x from './assets/x.png';
 import './App.css';
 
 type Topic = {
