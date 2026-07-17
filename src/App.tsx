@@ -188,6 +188,7 @@ function App() {
 	const [isBibliographyOpen, setIsBibliographyOpen] = useState(false);
 
 	const activeTopic = activeIndex === null ? null : topics[activeIndex];
+	const isReadingBibliography = activeTopic === null && isBibliographyOpen;
 
 	const openTopic = (index: number) => {
 		setIsBibliographyOpen(false);
@@ -206,9 +207,19 @@ function App() {
 		setActiveIndex((activeIndex + 1) % topics.length);
 	};
 
+	const openBibliography = () => {
+		setActiveIndex(null);
+		setIsBibliographyOpen(true);
+	};
+
+	const backToMap = () => {
+		setIsBibliographyOpen(false);
+		setActiveIndex(null);
+	};
+
 	return (
 		<main className={`mind-map-app ${activeTopic ? 'mind-map-app--reader' : ''}`}>
-			{!activeTopic ? (
+			{!activeTopic && !isReadingBibliography ? (
 				<section
 					className="map-screen"
 					aria-label="Mapa mental de fundamentos de la contabilidad"
@@ -280,63 +291,23 @@ function App() {
 						))}
 					</div>
 
-					{!isBibliographyOpen ? (
-						<button
-							type="button"
-							className="bibliography-fab"
-							onClick={() => setIsBibliographyOpen(true)}
-							aria-label="Abrir bibliografía"
-						>
-							Bibliografía
-						</button>
-					) : null}
-
-					{isBibliographyOpen ? (
-						<aside
-							className="bibliography-card"
-							aria-label="Bibliografía del mapa mental"
-						>
-							<button
-								type="button"
-								className="bibliography-card__close"
-								onClick={() => setIsBibliographyOpen(false)}
-								aria-label="Cerrar bibliografía"
-							>
-								<img
-									className="bibliography-card__close-icon"
-									src={x}
-									alt="close"
-								/>
-							</button>
-							<h2>Bibliografía y Créditos</h2>
-							<ul>
-								{bibliography.map((item) => (
-									<li key={`${item.text}-${item.url ?? 'local'}`}>
-										{item.url ? (
-											<a
-												href={item.url}
-												title={item.title}
-												target="_blank"
-												rel="noreferrer"
-											>
-												{item.text}
-											</a>
-										) : (
-											item.text
-										)}
-									</li>
-								))}
-							</ul>
-						</aside>
-					) : null}
-
 					<footer className="page-footer" aria-label="Autor y materia">
 						<span>
 							Estudiante:
 							<strong> Ivan Herrera V-26590497</strong>
 						</span>
+						<span>
+							Sección: <strong> "A"</strong>
+						</span>
 						<span>Instituto Universitario Jesús Obrero</span>
 						<span>Contabilidad Computarizada</span>
+						<button
+							type="button"
+							className="page-footer__link"
+							onClick={openBibliography}
+						>
+							Bibliografía y créditos
+						</button>
 					</footer>
 				</section>
 			) : (
@@ -345,76 +316,131 @@ function App() {
 						className="reader-controls reader-controls--right"
 						aria-label="Controles de lectura"
 					>
-						<button type="button" onClick={goToPrevious}>
-							← Anterior
-						</button>
-						<button type="button" onClick={goToNext}>
-							Siguiente →
-						</button>
-						<button
-							type="button"
-							className="reader-controls__back"
-							onClick={() => setActiveIndex(null)}
-						>
+						{activeTopic ? (
+							<>
+								<button type="button" onClick={goToPrevious}>
+									← Anterior
+								</button>
+								<button type="button" onClick={goToNext}>
+									Siguiente →
+								</button>
+							</>
+						) : null}
+						<button type="button" className="reader-controls__back" onClick={backToMap}>
 							Volver al mapa mental
 						</button>
 					</div>
 
-					<article className={`reader-card reader-card--${activeTopic.accent}`}>
-						<div className="reader-card__content">
-							<section className="reader-hero">
-								<header className="reader-card__header">
-									<div>
-										<p className="eyebrow">Pantalla de lectura</p>
-										<h2>{activeTopic.title}</h2>
-										<p>{activeTopic.subtitle}</p>
-									</div>
-									<span className="reader-card__counter">
-										{String((activeIndex ?? 0) + 1).padStart(2, '0')} /{' '}
-										{String(topics.length).padStart(2, '0')}
-									</span>
-								</header>
-
-								<section
-									className="reader-media"
-									aria-label="Espacio de imagen representativa"
-								>
-									{activeTopic.imageUrl ? (
-										<img
-											className="reader-media__image"
-											src={activeTopic.imageUrl}
-											alt={activeTopic.title}
-										/>
-									) : (
-										<div className="reader-media__placeholder">
-											<span className="reader-media__tag">
-												Espacio para imagen
-											</span>
-											<strong>{activeTopic.label}</strong>
-											<p>{activeTopic.imageNote}</p>
+					{activeTopic ? (
+						<article className={`reader-card reader-card--${activeTopic.accent}`}>
+							<div className="reader-card__content">
+								<section className="reader-hero">
+									<header className="reader-card__header">
+										<div>
+											<p className="eyebrow">Pantalla de lectura</p>
+											<h2>{activeTopic.title}</h2>
+											<p>{activeTopic.subtitle}</p>
 										</div>
-									)}
-								</section>
-							</section>
+										<span className="reader-card__counter">
+											{String((activeIndex ?? 0) + 1).padStart(2, '0')} /{' '}
+											{String(topics.length).padStart(2, '0')}
+										</span>
+									</header>
 
-							<section className="reader-copy">
-								<p className="reader-copy__summary">{activeTopic.overview}</p>
+									<section
+										className="reader-media"
+										aria-label="Espacio de imagen representativa"
+									>
+										{activeTopic.imageUrl ? (
+											<img
+												className="reader-media__image"
+												src={activeTopic.imageUrl}
+												alt={activeTopic.title}
+											/>
+										) : (
+											<div className="reader-media__placeholder">
+												<span className="reader-media__tag">
+													Espacio para imagen
+												</span>
+												<strong>{activeTopic.label}</strong>
+												<p>{activeTopic.imageNote}</p>
+											</div>
+										)}
+									</section>
+								</section>
+
+								<section className="reader-copy">
+									<p className="reader-copy__summary">{activeTopic.overview}</p>
+									<ul>
+										{activeTopic.points.map((point) => (
+											<li key={point}>{point}</li>
+										))}
+									</ul>
+								</section>
+							</div>
+						</article>
+					) : (
+						<article className="reader-card reader-card--bibliography">
+							<div
+								className="reader-bibliography"
+								aria-label="Bibliografía del mapa mental"
+							>
+								<div className="reader-bibliography__header">
+									<div>
+										<h2>Bibliografía y Créditos</h2>
+									</div>
+									{/* <button
+										type="button"
+										className="bibliography-card__close"
+										onClick={backToMap}
+										aria-label="Cerrar bibliografía"
+									>
+										<img
+											className="bibliography-card__close-icon"
+											src={x}
+											alt="close"
+										/>
+									</button> */}
+								</div>
 								<ul>
-									{activeTopic.points.map((point) => (
-										<li key={point}>{point}</li>
+									{bibliography.map((item) => (
+										<li key={`${item.text}-${item.url ?? 'local'}`}>
+											{item.url ? (
+												<a
+													href={item.url}
+													title={item.title}
+													target="_blank"
+													rel="noreferrer"
+												>
+													{item.text}
+												</a>
+											) : (
+												item.text
+											)}
+										</li>
 									))}
 								</ul>
-							</section>
-						</div>
-					</article>
+							</div>
+						</article>
+					)}
 
 					<footer className="page-footer" aria-label="Autor y materia">
 						<span>
 							Estudiante:
 							<strong> Ivan Herrera V-26590497</strong>
 						</span>
+						<span>
+							Sección: <strong> "A"</strong>
+						</span>
 						<span>Instituto Universitario Jesús Obrero</span>
 						<span>Contabilidad Computarizada</span>
+						<button
+							type="button"
+							className="page-footer__link"
+							onClick={openBibliography}
+						>
+							Bibliografía y créditos
+						</button>
 					</footer>
 				</section>
 			)}

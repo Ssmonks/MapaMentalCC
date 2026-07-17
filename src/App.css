@@ -62,6 +62,30 @@
 	color: var(--muted);
 }
 
+.page-footer__link {
+	appearance: none;
+	border: 0;
+	padding: 0;
+	margin-top: 0.1rem;
+	background: transparent;
+	font: inherit;
+	font-size: 0.78rem;
+	line-height: 1.2;
+	text-align: left;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
+	color: var(--accent-2);
+	cursor: pointer;
+	width: fit-content;
+}
+
+.page-footer__link:hover,
+.page-footer__link:focus-visible {
+	color: var(--accent);
+	outline: none;
+}
+
 .map-screen,
 .reader-screen {
 	position: relative;
@@ -382,6 +406,8 @@
 	position: absolute;
 	top: 0.55rem;
 	right: 0.55rem;
+	display: grid;
+	place-items: center;
 	width: 2rem;
 	height: 2rem;
 	border: 0;
@@ -389,8 +415,6 @@
 	background: rgba(20, 22, 27, 0.08);
 	color: var(--ink-strong);
 	cursor: pointer;
-	justify-content: center;
-	align-items: center;
 }
 
 .bibliography-card__close-icon {
@@ -544,6 +568,52 @@
 	align-items: start;
 	gap: 1rem;
 	padding: 1rem 1.1rem 1.25rem;
+}
+
+.reader-bibliography {
+	padding: 1.2rem 1.15rem 1.35rem;
+	display: grid;
+	gap: 0.9rem;
+}
+
+.reader-bibliography__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 1rem;
+	position: relative;
+}
+
+.reader-bibliography h2 {
+	margin: 0.2rem 0 0;
+	font-size: clamp(1.25rem, 2vw, 2rem);
+	line-height: 1.1;
+	color: var(--ink-strong);
+}
+
+.reader-bibliography .bibliography-card__close {
+	position: static;
+	flex: 0 0 auto;
+}
+
+.reader-bibliography ul {
+	margin: 0;
+	padding-left: 1rem;
+	display: grid;
+	gap: 0.62rem;
+	color: var(--muted);
+	font-size: 0.9rem;
+	line-height: 1.45;
+}
+
+.reader-bibliography a {
+	color: var(--accent-2);
+	text-decoration: none;
+}
+
+.reader-bibliography a:hover,
+.reader-bibliography a:focus-visible {
+	text-decoration: underline;
 }
 
 .reader-media,
@@ -790,6 +860,14 @@
 
 	.reader-card__counter {
 		align-self: flex-start;
+	}
+
+	.reader-bibliography {
+		padding: 1rem;
+	}
+
+	.reader-bibliography ul {
+		font-size: 0.85rem;
 	}
 }
 
